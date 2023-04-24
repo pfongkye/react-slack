@@ -36,13 +36,28 @@ function createHostConfig(slackApp:App){
                 }
                 return {type, value: props.value, ack: props.ack};
             } else if (type === 'modal'){
-                return {type, title:props.title, blocks:[]};
+                //TODO: find a way to better handle submit button (hard-code here) 
+                //-> either onSubmit on modal or a submit button for better customization (text + action)
+                //for now default is onSubmit handler on modal 
+                return {type, title:props.title, blocks:[], submit:{type:'plain_text', text:'hard_coded_submit'}, onSubmit:props.onSubmit};
             } else if (type === 'text'){
                const textElt:any = {text: props.children};
                if (props.markdown) {
                 textElt.type = 'mrkdwn';
                }
                return textElt;
+            } else if (type === 'input'){
+                return {
+                    type,
+                    element: {
+                        type: 'plain_text_input',
+                        action_id: 'sl_input',
+                    },
+                    label: {
+                        type:'plain_text',
+                        text: props.label
+                    }
+                }
             }
             return {type};
         },
@@ -58,6 +73,7 @@ function createHostConfig(slackApp:App){
         appendInitialChild(parent, child){
             if (parent.type === 'command'){
                 if (child.type === 'modal'){
+                    const callback_id = 'view_1';
                     slackApp.command(parent.value, async ({ack, body, client}) =>{
                         if (parent.ack){
                             await ack();
@@ -65,13 +81,15 @@ function createHostConfig(slackApp:App){
                         await client.views.open({
                             trigger_id:body.trigger_id,
                             view: {
+                                ...child,
                                 type:'modal',
-                                callback_id: 'view_1',
-                                title: {type:'plain_text', text: child.title},
-                                blocks: child.blocks
+                                callback_id,
+                                title: {type:'plain_text', text: child.title}, 
                             }
                         })
                     });
+                    
+                    slackApp.view(callback_id, child.onSubmit);
                 }
             } else if (parent.type === 'modal') {
                 parent.blocks.push(child);

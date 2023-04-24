@@ -18,8 +18,16 @@ const app = new App({
 const reactSlack = new SlackRenderer(app);
 reactSlack.render(
     <command value='/bender_stg_local' ack>
-        <modal title="This is my modal">
+        <modal title="This is my modal" onSubmit={async ({ack, view, client, body})=>{
+                        await ack();
+                        console.log(JSON.stringify(view))
+                        await client.chat.postMessage({
+                            channel: body.user.id,
+                            text: 'I am processing your request.'
+                        })
+                    }}>
             <section><text markdown>A message *with some bold text* and _some italicized text_.</text></section>
+            <input label="My Label" />
         </modal>
     </command>)
 
