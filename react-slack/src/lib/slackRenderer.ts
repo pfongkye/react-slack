@@ -49,14 +49,25 @@ function createHostConfig(slackApp:App){
             } else if (type === 'input'){
                 return {
                     type,
+                    block_id: props.blockId,
                     element: {
                         type: 'plain_text_input',
-                        action_id: 'sl_input',
+                        action_id: props.actionId || 'sl_input',
                     },
                     label: {
                         type:'plain_text',
                         text: props.label
                     }
+                }
+            } else if (type === 'img') {
+                return {
+                    type: "image",
+                    title: {
+                        type: "plain_text",
+                        text: props.title
+                    },
+                    image_url: props.url,
+                    alt_text: props.alt || props.title
                 }
             }
             return {type};

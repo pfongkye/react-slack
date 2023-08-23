@@ -21,13 +21,15 @@ reactSlack.render(
         <modal title="This is my modal" onSubmit={async ({ack, view, client, body})=>{
                         await ack();
                         console.log(JSON.stringify(view))
+                        const {values: {my_prompt: {my_input:myInput}}} = view.state;
                         await client.chat.postMessage({
                             channel: body.user.id,
-                            text: 'I am processing your request.'
+                            text: `I am processing your request: ${myInput.value}`
                         })
                     }}>
+            <img title="Coffee time" url="https://coffee.alexflipnote.dev/random"/>
             <section><text markdown>A message *with some bold text* and _some italicized text_.</text></section>
-            <input label="My Label" />
+            <input label="My Label" actionId="my_input" blockId="my_prompt" />
         </modal>
     </command>)
 
