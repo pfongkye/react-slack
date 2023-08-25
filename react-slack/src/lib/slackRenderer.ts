@@ -1,12 +1,16 @@
-import ReactReconciler from "react-reconciler";
 import { App } from "@slack/bolt";
+//https://www.npmjs.com/package/react-reconciler
+/**
+ * Its API is not as stable as that of React, React Native, or React DOM,
+ * and does not follow the common versioning scheme.
+ * Use it at your own risk.
+ */
+import ReactReconciler from "react-reconciler";
 
 class SlackRenderer {
-  private readonly slackApp: App;
   private readonly reactReconciler;
   private rootContainer;
   constructor(slackApp: App) {
-    this.slackApp = slackApp;
     this.reactReconciler = ReactReconciler(createHostConfig(slackApp));
     this.rootContainer = this.reactReconciler.createContainer({}, false);
   }
@@ -40,7 +44,7 @@ function createHostConfig(slackApp: App) {
           type,
           title: props.title,
           blocks: [],
-          submit: { type: "plain_text", text: "hard_coded_submit" },
+          submit: { type: "plain_text", text: "Submit" },
           onSubmit: props.onSubmit,
         };
       } else if (type === "text") {
