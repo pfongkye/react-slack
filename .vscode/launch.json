@@ -7,11 +7,25 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
+            "name": "React Slack",
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/react-slack/src/client/index.tsx",
+            "program": "${workspaceFolder}/react-slack/src/client/react/index.tsx",
+            "preLaunchTask": "npm: build",
+            "envFile": "${workspaceFolder}/.env",
+            "outFiles": [
+                "${workspaceFolder}/**/*.js"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Vanilla Slack",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/react-slack/src/client/vanilla/index.tsx",
             "preLaunchTask": "npm: build",
             "envFile": "${workspaceFolder}/.env",
             "outFiles": [
