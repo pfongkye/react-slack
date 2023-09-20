@@ -1,0 +1,27 @@
+{
+  "name": "react-slack",
+  "version": "1.0.0",
+  "description": "React renderer for Slack apps",
+  "main": "index.ts",
+  "engines": {
+    "node": ">= 16.15.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "keywords": [
+    "react",
+    "slack"
+  ],
+  "author": "pascal.fongkye@manomano.com",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "@slack/bolt": "^3.12.2",
+    "react": "^18.2.0",
+    "react-reconciler": "^0.29.0"
+  }
+}
