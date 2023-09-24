@@ -15,7 +15,7 @@ const app = new App({
 })();
 
 const callback_id = "view_1";
-app.command("/react-slack", async ({ ack, client, body }) => {
+app.command("/define-word", async ({ ack, client, body }) => {
   await ack();
 
   await client.views.open({

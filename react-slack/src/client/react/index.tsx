@@ -19,7 +19,7 @@ const app = new App({
 const reactSlack = new SlackRenderer(app);
 //server-side
 reactSlack.render(
-  <command value="/react-slack" ack>
+  <command value="/define-word" ack>
     <modal
       title="React Modal"
       //https://slack.dev/bolt-js/concepts#view-submissions
